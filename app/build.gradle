@@ -1,0 +1,49 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        applicationId "thepoosh.com.taplyitcstest"
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:design:23.2.0'
+    compile("com.taplytics.sdk:taplytics:1.7.8@aar")
+
+    // Dependencies for Taplytics
+    compile("com.mcxiaoke.volley:library:+")
+    compile("com.squareup.okhttp:okhttp-urlconnection:+")
+    compile("com.squareup.okhttp:okhttp:+")
+    //Excluding org.json due to compiler warnings
+    compile("com.github.nkzawa:socket.io-client:+") {
+        exclude group: "org.json"
+    }
+    compile("com.github.nkzawa:engine.io-client:+") {
+        exclude group: "org.json"
+    }
+
+}
