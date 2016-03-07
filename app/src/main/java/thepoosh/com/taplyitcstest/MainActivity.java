@@ -1,5 +1,6 @@
 package thepoosh.com.taplyitcstest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.taplytics.sdk.Taplytics;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         list.setAdapter(new ArrayAdapter(this, android.R.layout.simple_list_item_1, DATA));
+        handleDeepLink(getIntent());
     }
 
     @Override
@@ -82,5 +86,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void handleDeepLink(Intent intent) {
+        String tlDeeplink = intent.getDataString(); //example deep link: 'tl-506f596f://e10651f9ef6b'
+        if (tlDeeplink == null) {
+            // No deeplink found
+            return;
+        }
+        Taplytics.deviceLink(tlDeeplink);
     }
 }
